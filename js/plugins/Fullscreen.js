@@ -19,7 +19,9 @@
     }
    
     extend(Scene_Boot, 'start', function() {
-        Graphics._switchFullScreen();
+        if(ConfigManager.fullscreen){
+          Graphics._switchFullScreen();
+        }
     })
     
     
@@ -49,11 +51,11 @@
     var _ConfigManager_applyData = ConfigManager.applyData;
     var _ConfigManager_makeData = ConfigManager.makeData;
     var _ConfigManager_save = ConfigManager.save;
-    ConfigManager.fullscreen = true;
+    ConfigManager.fullscreen = false;
 
     ConfigManager.applyData = function(config) {
       _ConfigManager_applyData.call(this, config);
-      ConfigManager.fullscreen = ConfigManager.readFlag(config, "fullscreen", true);
+      ConfigManager.fullscreen = ConfigManager.readFlag(config, "fullscreen", false);
     };
 
     ConfigManager.makeData = function() {
