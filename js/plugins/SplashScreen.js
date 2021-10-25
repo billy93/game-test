@@ -1,25 +1,25 @@
 
 (() => {
     
+
+
     // SceneManager_goto = SceneManager.goto;
     // SceneManager.goto = function(sceneClass) {
-    //     SceneManager_goto.call(this, Scene_SplashScreens);
+    //     SceneManager_goto.call(this, Scene_Title);
     // };
 
-    Scene_Boot.videoPlaying = false;
-    
     Scene_Boot.prototype.startNormalGame = function() {
         this.checkPlayerLocation();
         DataManager.setupNewGame();
-        Window_TitleCommand.initCommandPosition();
-        // this.createMessageWindow();
+        // SceneManager.goto(Scene_Title);
+        // Window_TitleCommand.initCommandPosition();
     };
     
     Scene_Boot.prototype.update = function(){
         if(TouchInput.isClicked()){
             this.videoPlaying = true;
             if(!Video.isPlaying()){
-                Video.play("movies/opening.webm");
+                Video.play("movies/opening.webm");        
             }
         }
 
@@ -29,6 +29,50 @@
             }
         }
     }    
+
+    /*
+    function Scene_SplashScreens() {
+        this.initialize(...arguments);
+    }
+
+    Scene_SplashScreens.prototype = Object.create(Stage.prototype);
+    Scene_SplashScreens.prototype.constructor = Scene_SplashScreens;
+
+    Scene_SplashScreens.prototype.initialize = function() {
+        Stage.prototype.initialize.call(this);
+    }
+
+    Scene_SplashScreens.prototype.videoPlaying = false;
+    
+    Scene_SplashScreens.prototype.start = function() {
+        Scene_Base.prototype.start.call(this);
+        this.startNormalGame();
+    }
+    
+    Scene_SplashScreens.prototype.startNormalGame = function() {
+        this.checkPlayerLocation();
+        DataManager.setupNewGame();
+        Window_TitleCommand.initCommandPosition();
+    
+        // this.createMessageWindow();
+        // Game_Interpreter.prototype.command101.call(this, ["Evil", 7, 0, 2, "Mysterious Dev"]);
+    };
+    
+    Scene_SplashScreens.prototype.update = function(){
+        if(TouchInput.isClicked()){
+            this.videoPlaying = true;
+            if(!Video.isPlaying()){
+                Video.play("movies/opening.webm");        
+            }
+        }
+
+        if(this.videoPlaying){
+            if(!Video.isPlaying()){
+                SceneManager.goto(Scene_Title);
+            }
+        }
+    }    
+    */
 
     // Scene_Boot.prototype.createMessageWindow = function() {
     //     const rect = this.messageWindowRect();
