@@ -18,11 +18,9 @@
       }
     }
    
-    extend(Scene_Boot, 'start', function() {
-        if(ConfigManager.fullscreen){
-          Graphics._switchFullScreen();
-        }
-    })
+    // extend(Scene_Boot, 'start', function() {
+    //       Graphics._switchFullScreen();        
+    // })
     
     
   //  var _Scene_Base_create = Scene_Base.prototype.create;
@@ -51,11 +49,11 @@
     var _ConfigManager_applyData = ConfigManager.applyData;
     var _ConfigManager_makeData = ConfigManager.makeData;
     var _ConfigManager_save = ConfigManager.save;
-    ConfigManager.fullscreen = false;
+    ConfigManager.fullscreen = Graphics._isFullScreen();
 
     ConfigManager.applyData = function(config) {
       _ConfigManager_applyData.call(this, config);
-      ConfigManager.fullscreen = ConfigManager.readFlag(config, "fullscreen", false);
+      ConfigManager.fullscreen = ConfigManager.readFlag(config, "fullscreen", Graphics._isFullScreen());
     };
 
     ConfigManager.makeData = function() {
@@ -67,7 +65,9 @@
     ConfigManager.save = function() {
       _ConfigManager_save.call(this);
       if(ConfigManager.fullscreen){
-        Graphics._switchFullScreen();
+        if(!Graphics._isFullScreen()){
+          Graphics._switchFullScreen();
+        }
       }
       else{
         Graphics._cancelFullScreen();
